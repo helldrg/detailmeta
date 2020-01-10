@@ -1,0 +1,990 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow&display=swap');
+
+:root {
+	--c-green: #4caf50;
+	--c-green-d: #43a047;
+	--c-gray-l: #b3b3b3;
+	--c-white: #fff;
+	--c-black: #000;
+}
+
+
+body {
+	font: 14px/1.2 'PT Sans Narrow', san-serif;
+	background: #76b852; /* fallback for old browsers */
+	background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+	background: -moz-linear-gradient(right, #76b852, #8DC26F);
+	background: -o-linear-gradient(right, #76b852, #8DC26F);
+	background: linear-gradient(to left, #76b852, #8DC26F);
+	font-family: "Roboto", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding: 0px;
+	margin: 0px;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+main {
+	flex: 1 0 auto;			/* Что бы опустить вниз footer */
+}
+
+.container {
+	max-width: calc(800px + 6*5px + 160px);
+	min-width: 410px;
+    margin: 0 auto;
+}
+
+.panel {
+	margin-top: 50px;
+	margin-left: 80px;
+	margin-right: 80px;
+	max-width: calc(800px + 6*5px);
+	min-width: calc(410px);
+}
+/*******************************************************/
+/* Login */
+/*******************************************************/
+
+.login-page {
+	min-width: 300px;
+	padding: 8% 0 0;
+	margin: auto;
+}
+.form {
+	position: relative;
+	z-index: 1;
+	background: var(--c-white);
+	width: 360px;
+	margin: 0 auto 100px;
+	padding: 45px;
+	text-align: center;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+	font-family: 'PT Sans Narrow', san-serif;
+	outline: 0;
+	background: #f2f2f2;
+	width: 100%;
+	border: 0;
+	margin: 0 0 15px;
+	padding: 15px;
+	box-sizing: border-box;
+}
+.form button {
+	font-family: 'PT Sans Narrow', san-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: var(--c-green);
+	width: 100%;
+	border: 0;
+	padding: 15px;
+	color: var(--c-white);
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+	background: var(--c-green-d);
+}
+.form .message {
+	font-family: 'PT Sans Narrow', san-serif;
+	margin: 15px 0 0;
+	font-size: 12px;
+}
+.form .message a {
+	color: var(--c-green);
+	text-decoration: none;
+}
+
+.form .message a:hover {
+	color: var(--c-green-d);
+	text-decoration: underline;
+}
+
+.form .register-form {
+	display: none;
+}
+/*******************************************************/
+/* Left Menu */
+/*******************************************************/
+/**
+ * Переключаемая боковая панель навигации
+ * выдвигающаяся по клику слева
+ */
+.nav {
+    /*  ширна произвольная, не стесняйтесь экспериментировать */
+    width: 270px;
+    min-width: 270px;
+    /* фиксируем и выставляем высоту панели на максимум */
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    /* сдвигаем (прячем) панель относительно левого края страницы */
+    left: -200px;
+    /* внутренние отступы */
+    padding: 15px 20px;
+    /* плавный переход смещения панели */
+    -webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    transition: left 0.3s;
+    /* определяем цвет фона панели */
+    background: var(--c-green);
+    /* поверх других элементов */
+    z-index: 2000;
+}
+/**
+ * Кнопка переключения панели
+ * тег <label>
+ */
+.nav-toggle {
+    /* абсолютно позиционируем */
+    position: absolute;
+    /* относительно левого края панели */
+    left: 200px;
+    /* отступ от верхнего края панели */
+    top: 0px;
+    /* внутренние отступы */
+    padding: 20px;
+    /* определяем цвет фона переключателя
+     * чаще вчего в соответствии с цветом фона панели
+    */
+    background: var(--c-green);
+    /* цвет текста */
+    color: var(--c-black);
+    /* вид курсора */
+    cursor: pointer;
+    /* размер шрифта */
+    font-size: 30px;
+    line-height: 1;
+    /* всегда поверх других элементов страницы */
+    z-index: 2001;
+    /* анимируем цвет текста при наведении */
+    -webkit-transition: color .25s ease-in-out;
+    -moz-transition: color .25s ease-in-out;
+    transition: color .25s ease-in-out;
+}
+/* определяем текст кнопки 
+ * символ Unicode (TRIGRAM FOR HEAVEN)
+*/
+.nav-toggle:after {
+    content: '\2630';
+    text-decoration: none;
+}
+/* цвет текста при наведении */
+.nav-toggle:hover {
+    color: var(--c-white);
+}
+/**
+ * Скрытый чекбокс (флажок)
+ * невидим и недоступен :)
+ * имя селектора атрибут флажка
+ */
+[id='nav-toggle'] {
+    position: absolute;
+    display: none;
+}
+/**
+ * изменение положения переключателя 
+ * при просмотре на мобильных устройствах
+ * когда навигация раскрыта, распологаем внутри панели
+*/
+/**
+ * Когда флажок установлен, открывается панель
+ * используем псевдокласс:checked
+ */
+[id='nav-toggle']:checked ~ .nav {
+    left: 0;
+    box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    -moz-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    -webkit-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
+    overflow-y: auto;
+}
+/* 
+ * смещение контента страницы
+ * на размер ширины панели,
+ * фишка необязательная, на любителя
+*/
+/*[id='nav-toggle']:checked ~ .start-panel {
+    -webkit-transform: translateX(70px);
+    -moz-transform: translateX(70px);
+    transform: translateX(70px);
+}*/
+/*
+ * изменение символа переключателя,
+ * привычный крестик (MULTIPLICATION X), 
+ * вы можете испльзовать любой другой значок
+*/
+[id='nav-toggle']:checked ~ .nav > .nav-toggle:after {
+    content: '\2715';
+}
+/**
+ * Формируем стиль заголовка (логотип) панели 
+*/
+.nav h3 {
+	font-family: 'PT Sans Narrow', san-serif;
+    width: 90%;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center;
+}
+ 
+.nav h3 a {
+    color: var(--c-white);
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.nav h3 a:hover {
+    color: var(--c-black);
+    text-decoration: none;
+}
+/**
+ * формируем непосредственно само меню
+ * используем неупорядоченный список для пунктов меню
+ * прикрутим трансфомации и плавные переходы
+ */
+.nav > ul {
+    display: block;
+    margin: 0;
+    padding-left: 15px;
+    list-style: none;
+}
+
+.nav > ul > li {
+    line-height: 2.5;
+    opacity: 0;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: opacity .5s .1s, -webkit-transform .5s .1s;
+    -moz-transition: opacity .5s .1s, -moz-transform .5s .1s;
+    -ms-transition: opacity .5s .1s, -ms-transform .5s .1s;
+    transition: opacity .5s .1s, transform .5s .1s;
+}
+ 
+[id='nav-toggle']:checked ~ .nav > ul > li {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+/**
+ * оформление ссылок пунктов меню
+ */
+.nav > ul > li > a {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    font-family: 'PT Sans Narrow', san-serif;
+    font-weight: 300;
+    font-size: 1.2em;
+    color: var(--c-white);
+    width: 100%;
+    text-decoration: none;
+    /* плавный переход */
+    -webkit-transition: color .5s ease, padding .5s ease;
+    -moz-transition: color .5s ease, padding .5s ease;
+    transition: color .5s ease, padding .5s ease;
+}
+/**
+ * состояние ссылок меню при наведении
+ */
+.nav > ul > li > a:hover,
+.nav > ul > li > a:focus {
+    color: var(--c-black);
+    padding-left: 5px;
+}
+/**
+ * линия подчеркивания ссылок меню
+ */
+.nav > ul > li > a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--c-green-d);
+    -webkit-transition: width .5s ease;
+    transition: width .5s ease;
+}
+/**
+ * анимируем линию подчеркивания 
+ * ссылок при наведении
+ */
+.nav > ul > li > a:hover:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--c-white);
+    -webkit-transition: width .5s ease;
+    transition: width .5s ease;
+}
+/*******************************************************/
+/* Starting content */
+/*******************************************************/
+.start-panel {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.start-panel > * {
+  margin: 5px;
+}
+
+.item-s {
+	flex-grow: 1;
+	min-width: 200px;
+	height: 200px;
+}
+
+.item-b {
+	flex-grow: 2;
+	width: 400px;
+	height: 200px;
+}
+
+.tile:hover,
+.tile:active,
+.tile.active,
+.tile:focus,
+.tile:active:focus,
+.tile.active:focus {
+	-webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	-moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+/* -- Tiles color ------------------------------------- */
+.tile-pink {
+	background-color: #ec407a;
+}
+.tile-pink {
+	color: #eceff1;
+}
+.tile-pink:hover,
+.tile-pink:active,
+.tile-pink.active {
+	background-color: #d81b60;
+}
+.tile-pink:focus {
+  background-color: #c2185b;
+}
+
+.tile-purple {
+	background-color: #ab47bc;
+}
+.tile-purple  {
+	color: #eceff1;
+}
+.tile-purple:hover,
+.tile-purple:active,
+.tile-purple.active {
+	background-color: #8e24aa;
+}
+.tile-purple:focus {
+  background-color: #7b1fa2;
+}
+
+.tile-cyan {
+	background-color: #26c6da;
+}
+.tile-cyan  {
+	color: #eceff1;
+}
+.tile-cyan:hover,
+.tile-cyan:active,
+.tile-cyan.active {
+	background-color: #00acc1;
+}
+.tile-cyan:focus {
+  background-color: #0097a7;
+}
+
+.tile-amber  {
+	background-color: #ffca28;
+}
+.tile-amber   {
+	color: #eceff1;
+}
+.tile-amber :hover,
+.tile-amber :active,
+.tile-amber .active {
+	background-color: #ffb300;
+}
+.tile-amber :focus {
+  background-color: #ffa000;
+}
+
+.tile-light-blue {
+	background-color: #29b6f6;
+}
+.tile-light-blue  {
+	color: #eceff1;
+}
+.tile-light-blue:hover,
+.tile-light-blue:active,
+.tile-light-blue.active {
+	background-color: #039be5;
+}
+.tile-light-blue:focus {
+  background-color: #0288d1;
+}
+
+.tile-red {
+	background-color: #e84e40;
+}
+.tile-red  {
+	color: #eceff1;
+}
+.tile-red:hover,
+.tile-red:active,
+.tile-red.active {
+	background-color: #dd191d;
+}
+
+.tile-indigo {
+	background-color: #5c6bc0;
+}
+.tile-indigo  {
+	color: #eceff1;
+}
+.tile-indigo:hover,
+.tile-indigo:active,
+.tile-indigo.active {
+	background-color: #3949ab;
+}
+.tile-indigo:focus {
+  background-color: #303f9f;
+}
+
+.tile-deep-orange {
+	background-color: #ff7043;
+}
+.tile-deep-orange  {
+	color: #eceff1;
+}
+.tile-deep-orange:hover,
+.tile-deep-orange:active,
+.tile-deep-orange.active {
+	background-color: #f4511e;
+}
+.tile-deep-orange:focus {
+  background-color: #e64a19;
+}
+
+.tile-light-green {
+	background-color: #9ccc65;
+}
+.tile-light-green  {
+	color: #eceff1;
+}
+.tile-light-green:hover,
+.tile-light-green:active,
+.tile-light-green.active {
+	background-color: #7cb342;
+}
+.tile-light-green:focus {
+  background-color: #689f38;
+}
+
+
+.title-dashboard {
+	/*FLEX BOX */
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+	height: 200px;
+}
+
+.title-dashboard span {
+	-webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+	padding:20px;
+}
+
+.title-dashboard a {
+	color: var(--c-white);
+	text-decoration: none;
+}
+
+.title-dashboard a:hover {
+	color: var(--c-white);
+	text-decoration: underline;
+}
+/*******************************************************/
+/* Footer */
+/*******************************************************/
+.footer-bottom-level {
+	display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;	/*Центрирование по вертикали*/
+	align-self: flex-end;
+	/*position: fixed; /* Фиксированное положение */
+   /* bottom: 0; */
+	width: 100%;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.footer-text {
+	font-family: 'PT Sans Narrow', san-serif;
+	color: var(--c-white);
+}
+/*******************************************************/
+/* Panel */
+/*******************************************************/
+.settings-panel {
+	z-index: 1;
+	background: var(--c-white);
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.title-panel {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	background-color: var(--c-green);
+	height: 50px;
+	line-height: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+/* button in title-panel plus */
+.b-plus-title {
+	position: relative;
+	background-color: var(--c-green);
+    width: 18px;
+    height: 18px;
+	padding-right: 20px;
+}
+
+.b-plus-title:after {
+    content: "";
+    position: absolute;
+    background-color: var(--c-white);
+    transition: transform 0.25s ease-out, background-color .25s ease-in-out;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    margin-top: -2px;
+}
+
+.b-plus-title:before {
+    content: "";
+    position: absolute;
+	background-color: var(--c-white);
+    transition: transform 0.25s ease-out, background-color .25s ease-in-out;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    margin-left: -2px;
+}
+
+.b-plus-title:hover {
+    cursor: pointer;
+}
+
+.b-plus-title:hover:before { 
+	background-color: var(--c-black);
+	transform: rotate(90deg); 
+}
+
+.b-plus-title:hover:after { 
+	background-color: var(--c-black);
+	transform: rotate(90deg); 
+}
+
+/* button in panel arrow-left */
+.b-arrow-left {
+	/* more triangle */
+	position: relative;
+	height: 0px; width: 0px;
+	border: 8px solid;
+	border-color: 
+		var(--c-white)
+		var(--c-white)
+		transparent
+		transparent;
+	transform: rotate(-135deg);
+	transition: transform 0.25s ease-out, border-color 0.25s ease-in-out;
+	margin-right: 5px;
+}
+
+.b-arrow-left:before {
+	content: '';
+	position: absolute;
+	top: 0px; right: 0px;
+	display: block;
+	height: 10px; width: 16px;
+	background-color: var(--c-white);
+	transform: 
+		rotate(135deg) 
+		translate(-2px, -2px);
+	transition: transform 0.25s ease-out, background-color 0.25s ease-in-out;
+}
+
+.b-arrow-left:hover {
+    cursor: pointer;
+	border-color: 
+		var(--c-black)
+		var(--c-black)
+		transparent
+		transparent;
+	/*transform: rotate(495deg);*/ /* arrow down */
+	/*transform: rotate(225deg);*/ /* arrow circle */
+	transform: rotate(-135deg) translate(10px, -10px);
+}
+
+.b-arrow-left:hover:before { 
+	cursor: pointer;
+	background-color: var(--c-black);
+	/*transform: rotate(495deg) translate(-2px, -2px); */ /* arrow down */
+	/*transform: rotate(495deg) translate(-2px, -2px);*/ /* arrow circle */
+	transform: rotate(135deg) translate(5px, -2px) scale(2, 1);
+}
+        
+.d-table {
+	display: flex;
+	flex-flow: column nowrap;
+	flex: 1 1 auto;
+	padding: 45px;
+}
+
+.d-th {
+	display: none;
+	text-transform: uppercase;
+}
+
+.d-tr {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.d-td {
+	display: flex;
+	flex-flow: row nowrap;
+	flex-grow: 1;
+	flex-basis: 0;
+	padding: 10px;
+	min-width: 100px;
+	border-bottom: 1px solid var(--c-gray-l);
+	
+	white-space: normal;
+	justify-content: center;
+	align-items: center;
+}
+
+.d-td-img {
+	display: flex;
+	flex-flow: row nowrap;
+	flex-grow: 3;
+	flex-basis: 0;
+	padding: 10px;
+	min-width: 100px;
+	border-bottom: 1px solid var(--c-gray-l);
+	
+	white-space: normal;
+	justify-content: center;
+	align-items: center;
+}
+
+.d-table-img {
+	width: 100%;
+	max-width: 200px;
+	height: 100px;
+}
+
+/**
+ * оформление ссылок
+ */
+.d-td-action {
+    position: relative;
+    padding: 0;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--c-green);
+    min-width: 80px;
+    text-decoration: none;
+	text-align: center;
+    /* плавный переход */
+    -webkit-transition: color .5s ease, padding .5s ease;
+    -moz-transition: color .5s ease, padding .5s ease;
+    transition: color .5s ease, padding .5s ease;
+}
+/**
+ * состояние ссылок меню при наведении
+ */
+.d-td-action:hover,
+.d-td-action:focus {
+    color: var(--c-black);
+    padding-left: 5px;
+}
+/**
+ * линия подчеркивания ссылок меню
+ */
+.d-td-action:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--c-gray-l);
+    -webkit-transition: width .5s ease;
+    transition: width .5s ease;
+}
+/**
+ * анимируем линию подчеркивания 
+ * ссылок при наведении
+ */
+.d-td-action:hover:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--c-black);
+    -webkit-transition: width .5s ease;
+    transition: width .5s ease;
+}
+
+.lightbox {
+	/** Default lightbox to hidden */
+	display: none;
+		
+	/** Position and style */
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+}
+
+.lightbox-img {
+	/** Pad the lightbox image */
+	max-width: 80%;
+	max-height: 80%;
+	margin-top: 2%;
+}
+
+.lightbox:target {
+	/** Remove default browser outline */
+	outline: none;
+	/** Unhide lightbox **/
+	display: flex;
+    justify-content: center; /*Центрирование по горизонтали*/
+    align-items: center;	/*Центрирование по вертикали*/
+}
+
+/* Drop container */
+.upload-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 110px;
+	height: 110px;
+	outline: 2px dashed #5d5d5d;
+	outline-offset: -12px;
+	background-color: rgba(76,175,80,.6);
+	text-align: center;
+}
+
+.upload-container-img {
+	width: 50px;
+	height: 50px;
+	user-select: none;
+}
+
+.upload-container-label {
+	font-weight: bold;
+}
+
+.upload-container-label:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.upload-container input[type=file] {
+	display:none;
+}
+
+.upload-container.dragover {
+	background-color: rgba(76,175,80,.2);
+}
+
+
+/* Drop img conatiner */
+.container-drop-img {
+	display: inline-block;
+	position: relative;
+	background-color: var(--c-white);
+	width: 100%;
+	max-width: 200px;
+	height: 100px;
+}
+
+.b-cross {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 24px;
+	height: 24px;
+	background-color: var(--c-green);
+	opacity: .8;
+}
+
+.b-cross:before, .b-cross:after {
+	position: absolute;
+	left: 10px;
+	content: ' ';
+	height: 24px;
+	width: 3px;
+	background-color: var(--c-black);
+}
+
+.b-cross:before {
+  transform: rotate(45deg);
+}
+
+.b-cross:after {
+  transform: rotate(-45deg);
+}
+
+.b-cross:hover:before, .b-cross:hover:after {
+	background-color: var(--c-white);
+}
+
+.d-table textarea, .d-table input, .d-table select {
+	font-family: 'PT Sans Narrow', san-serif;
+	outline: 0;
+	background: #f2f2f2;
+	width: 100%;
+	border: 0;
+
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+select:focus > option:checked { 
+    background: #e1e1e1 !important;
+}
+
+
+
+.form button:hover,.form button:active,.form button:focus {
+	background: var(--c-green-d);
+}
+
+.read-more {
+	margin: 10px auto 0;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	outline: 0;
+	background: var(--c-green);
+	width: 20%;
+	border: 0;
+	padding: 10px;
+	color: var(--c-white);
+	font-size: 14px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+
+.read-more:hover,.read-more:active,.read-more:focus {
+	background: var(--c-green-d);
+}
+
+/*******************************************************/
+/*  */
+/*******************************************************/
+
+.container-empty-list {
+	padding: 45px;
+}
+/*******************************************************/
+/* Left Menu */
+/*******************************************************/
+/*******************************************************/
+/* Templates text */
+/*******************************************************/
+.c-gray-l {
+	color: var(--c-gray-l);
+}
+
+.c-white {
+	color: var(--c-white);
+}
+
+.c-black {
+	color: var(--c-black);
+}
+
+.fs-small {
+	font-size: 14px;
+}
+
+.fs-medium {
+	font-size: 18px;
+}
+
+.ff-SansNarrow {
+	font-family: 'PT Sans Narrow', san-serif;
+}

@@ -1,0 +1,14 @@
+# ***************************************************************************
+# 
+# ***************************************************************************
+AddDefaultCharset utf-8
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php
+
+<Files "config/adminConfig.php'>
+    Order allow,deny
+    Deny from all
+</Files>

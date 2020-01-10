@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow&display=swap');
+
+body {
+    font: 20px/1.2 'PT Sans Narrow', san-serif;
+	color: #94969b;
+	background : #fff;
+	padding: 0px;
+	margin: 0px;
+}
+
+.container {
+    margin: 50px auto;
+    width: 100%;
+    text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #4b4f58;
+}
+
+a:hover {
+    text-decoration: underline;
+	color: #d0482e;
+}
